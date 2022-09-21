@@ -8,6 +8,6 @@
             CargoNome = cargoNome;
         }
 
-        public string CargoNome { get; protected set; }
+        public string CargoNome { get; set; }
     }
 }

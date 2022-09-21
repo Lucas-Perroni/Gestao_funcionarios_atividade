@@ -16,12 +16,13 @@ namespace GerenciamentoFuncionario.AcessoDados
         
         public IEnumerable<Funcionario> CarregaFuncionarios() => RecebeListaFuncionariosContexto();
 
-        public void SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
+        public Funcionario SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
         {
             var listaFuncionarioNovo = RecebeListaFuncionariosContexto();
             var novoFuncionario = new Funcionario(GeradorDeId(), nomeCompleto, cargoId, eBebedorCafe);
             listaFuncionarioNovo.Add(novoFuncionario);
             AtribuiListaFuncionariosContexto(listaFuncionarioNovo);
+            return novoFuncionario;
         }
         
         public void AtualizaFuncionario(Funcionario funcionario)

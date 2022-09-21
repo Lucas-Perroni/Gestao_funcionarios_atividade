@@ -50,13 +50,15 @@ namespace GerenciamentoFuncionario.AcessoDados
             return _contexto.Cargos.Find(x => x.CargoNome.Equals(nomeCargo));
         }
 
-        public void SalvaCargo(string nomeCargo)
+
+        public Cargo SalvaCargo(string nomeCargo)
         {
             var listaCargoNovo = _contexto.Cargos;
             var novoCargo = new Cargo(GeradorDeId(), nomeCargo);
             listaCargoNovo.Add(novoCargo);
             _contexto.Cargos = listaCargoNovo;
             Debug.WriteLine($"Cargo salvo: {novoCargo.CargoNome}");
+            return novoCargo;
         }
 
         private int GeradorDeId()

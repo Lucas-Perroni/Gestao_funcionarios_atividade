@@ -9,7 +9,6 @@ namespace GerenciamentoFuncionario.Comuns.Modelos
         {
 
         }
-
         public Funcionario(int id, string nomeCompleto, int cargoId,
             bool eBebedorCafe = false)
         {
@@ -43,6 +42,11 @@ namespace GerenciamentoFuncionario.Comuns.Modelos
         public void NaoEBebedorDeCafe()
         {
             EBebedorCafe = false;
+        }
+
+        public void eBebedorDeCafe()
+        {
+            EBebedorCafe = true;
         }
 
         public void SetCargoId(int cargoId)
