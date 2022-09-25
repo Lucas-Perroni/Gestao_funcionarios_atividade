@@ -153,10 +153,13 @@ namespace Program
                         ApresentaCargos(cargos);
 
                         Console.Write("Digite o ID do cargo que deseja excluir: ");
+
                         string idExclui1 = Console.ReadLine();
                         int IDExcluindo1 = int.Parse(idExclui1);
+
                         var excluirCargo1 = cargoProvedor.RecuperaCargoPorId(IDExcluindo1);
                         cargoProvedor.ExcluiCargo(excluirCargo1);
+
                         Console.WriteLine("--------------------------------");
                         Console.WriteLine("---------Cargo excluido---------");
                         Console.WriteLine("--------------------------------");

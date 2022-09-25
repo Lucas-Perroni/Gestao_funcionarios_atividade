@@ -13,8 +13,24 @@ namespace GerenciamentoFuncionario.AcessoDados
         public FuncionarioProvedorDados() => _contexto = new Contexto();
 
         public Funcionario RecuperaFuncionarioPorId(int id) => RecebeListaFuncionariosContexto().Find(x => x.Id.Equals(id));
-        
-        public IEnumerable<Funcionario> CarregaFuncionarios() => RecebeListaFuncionariosContexto();
+
+        public IEnumerable<Funcionario> CarregaFuncionarios() =>
+            RecebeListaFuncionariosContexto();
+
+        public void AtualizaFuncionario(Funcionario funcionario)
+        {
+            var listaFuncionariosAtualizada = RecebeListaFuncionariosContexto();
+            listaFuncionariosAtualizada.Remove(listaFuncionariosAtualizada?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
+            listaFuncionariosAtualizada.Add(funcionario);
+            AtribuiListaFuncionariosContexto(listaFuncionariosAtualizada);
+        }
+
+        public void ExcluiFuncionario(Funcionario funcionario)
+        {
+            var listaComFuncionarioExcluido = RecebeListaFuncionariosContexto();
+            listaComFuncionarioExcluido.Remove(listaComFuncionarioExcluido?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
+            AtribuiListaFuncionariosContexto(listaComFuncionarioExcluido);
+        }
 
         public Funcionario SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
         {
@@ -23,21 +39,6 @@ namespace GerenciamentoFuncionario.AcessoDados
             listaFuncionarioNovo.Add(novoFuncionario);
             AtribuiListaFuncionariosContexto(listaFuncionarioNovo);
             return novoFuncionario;
-        }
-        
-        public void AtualizaFuncionario(Funcionario funcionario)
-        {
-            var listaFuncionariosAtualizada = RecebeListaFuncionariosContexto();
-            listaFuncionariosAtualizada.Remove(listaFuncionariosAtualizada?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
-            listaFuncionariosAtualizada.Add(funcionario);
-            AtribuiListaFuncionariosContexto(listaFuncionariosAtualizada);
-        }        
-        
-        public void ExcluiFuncionario(Funcionario funcionario)
-        {
-            var listaComFuncionarioExcluido = RecebeListaFuncionariosContexto();
-            listaComFuncionarioExcluido.Remove(listaComFuncionarioExcluido?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
-            AtribuiListaFuncionariosContexto(listaComFuncionarioExcluido);
         }
 
         private int GeradorDeId()

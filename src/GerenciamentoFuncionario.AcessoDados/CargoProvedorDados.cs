@@ -36,7 +36,7 @@ namespace GerenciamentoFuncionario.AcessoDados
         public void ExcluiCargo(Cargo cargo)
         {
             var listaComCargoExcluido = _contexto.Cargos;
-            listaComCargoExcluido.Remove(cargo);
+            listaComCargoExcluido.Remove(listaComCargoExcluido?.FirstOrDefault(x => x.Id.Equals(cargo?.Id)));
             _contexto.Cargos = listaComCargoExcluido;
         }
 
