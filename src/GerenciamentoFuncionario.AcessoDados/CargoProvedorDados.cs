@@ -19,15 +19,8 @@ namespace GerenciamentoFuncionario.AcessoDados
         {
             var listaCargosAtualizada = _contexto.Cargos;
 
-            listaCargosAtualizada.ForEach(x =>
-            {
-                if (x.Id.Equals(cargo.Id))
-                {
-                    x = cargo;
-                    return;
-                }
-            });
-
+            listaCargosAtualizada.Remove(listaCargosAtualizada?.FirstOrDefault(x => x.Id.Equals(cargo?.Id)));
+            listaCargosAtualizada.Add(cargo);
             _contexto.Cargos = listaCargosAtualizada;
         }
 

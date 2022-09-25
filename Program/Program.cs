@@ -481,7 +481,7 @@ namespace Program
                         {
                             goto MenuFuncionario;
                         }
-                        break;
+                        //break;
 
                     case "3":
                         //método para atualizar um funcionario
