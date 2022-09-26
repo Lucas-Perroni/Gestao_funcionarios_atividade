@@ -20,13 +20,16 @@ namespace Program
             Console.WriteLine(" ----------------------------------------------- ---- ");
             Console.WriteLine(" ------Por favor, siga as instruções a seguir-------- ");
             Console.WriteLine(" ----------------------------------------------- ---- ");
-            Console.WriteLine(" \n\n ");
+            Console.WriteLine(" \n");
 
             MenuInicial:
             Console.WriteLine("1) - Deseja ir para área de cargos?");
             Console.WriteLine("2) - Deseka ir para área de funcionários?");
             Console.WriteLine("3) - Deseka sair do programa?");
+            Console.WriteLine(" \n");
+            Console.Write("Resposta: ");
             string respostaInicial = Console.ReadLine();
+            Console.Clear();
 
             if (respostaInicial == "1")
             {
@@ -34,119 +37,190 @@ namespace Program
                 Console.WriteLine(" ----------------------------------------------- ---- ");
                 Console.WriteLine(" ------------Bem vindo a área de cargos-------------- ");
                 Console.WriteLine(" ----------------------------------------------- ---- ");
+                Console.WriteLine(" \n");
                 Console.WriteLine(" 1) - Deseja criar um cargo ");
                 Console.WriteLine(" 2) - Deseja excluir um cargo");
                 Console.WriteLine(" 3) - Deseja atualizar um cargo");
                 Console.WriteLine(" 4) - Deseja listar os cargos");
                 Console.WriteLine(" 5) - Voltar para menu");
+                Console.WriteLine(" \n");
                 Console.Write("Resposta:");
                 string escolhaCargo = Console.ReadLine();
-
+                Console.Clear();
+    
                 switch (escolhaCargo)
                 {
                     case "1":
-                        Console.WriteLine(" \n\n ");
+                        nomeCargo:
+                        Console.WriteLine(" \n ");
                         Console.Write("Digite o nome do cargo:");
                         string nomeCargo = Console.ReadLine();
+
+                        //verificando caso o usuário coloque algum valor vazio
+                        if (nomeCargo == "")
+                        {
+                            Console.WriteLine("\n");
+                            Console.WriteLine(" ---------------------------------------------------");
+                            Console.WriteLine("             Valor inserido está vazio");
+                            Console.WriteLine("                 Tente novamente!");
+                            Console.WriteLine(" ---------------------------------------------------");
+                            goto nomeCargo;
+                        }
+
                         var cargoCriado = cargoProvedor.SalvaCargo(nomeCargo);
 
                         Console.Clear();
-
+                        Console.WriteLine(" ---------------------------------------------------");
+                        Console.WriteLine("             Confirmando a criação de cargo");
+                        Console.WriteLine(" ---------------------------------------------------");
                         Console.WriteLine(" \n ");
-                        Console.WriteLine("Confirmando a criação de cargo");
-                        Console.WriteLine("ID do cargo:" + cargoCriado.Id);
-                        Console.WriteLine("Nome do cargo criado" + cargoCriado.CargoNome);
-
-                        Console.WriteLine("Confirma a criação? (S/N)");
+                        Console.WriteLine("ID do cargo:  " + cargoCriado.Id);
+                        Console.WriteLine("Nome do cargo criado:  " + cargoCriado.CargoNome);
+                        Console.WriteLine(" \n ");
+                        Console.Write("Confirma a criação? (S/N)");
                         string respostafinalCargo = Console.ReadLine();
+
                         if (respostafinalCargo.ToUpper() == "N")
                         {
-                            Console.WriteLine("Deseja:");
+                            Console.Clear();
+                            Console.WriteLine(" ---------------------------------------------------");
+                            Console.WriteLine("               O que deseja fazer:");
+                            Console.WriteLine(" ---------------------------------------------------");
                             Console.WriteLine("1) - Excluir");
                             Console.WriteLine("2) - Alterar/Atualizar");
+                            Console.Write("Resposta:");
                             string respostaCARGO = Console.ReadLine();
 
                             if (respostaCARGO == "1")
                             {
+                                Console.Clear();
+
                                 //aqui estou listando os cargos para pessoa saber qual cargo ela quer excluir
                                 ApresentaCargos(cargos);
 
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
                                 Console.Write("Digite o ID do cargo que deseja excluir: ");
                                 string idExclui = Console.ReadLine();
                                 int IDExcluindo = int.Parse(idExclui);
                                 var excluirCargo = cargoProvedor.RecuperaCargoPorId(IDExcluindo);
                                 cargoProvedor.ExcluiCargo(excluirCargo);
+
+                                Console.Clear();
                                 Console.WriteLine("--------------------------------");
                                 Console.WriteLine("---------Cargo excluido---------");
                                 Console.WriteLine("--------------------------------");
+                                Console.WriteLine("\n");
                             }
                             else
                             {
+                                Console.Clear();
                                 //aqui estou listando os cargos para pessoa saber qual cargo ela quer atualizar
                                 ApresentaCargos(cargos);
 
-                                Console.WriteLine("");
+                                Console.WriteLine("\n");
                                 Console.Write("Digite o ID do cargo que deseja alterar/atualizar: ");
                                 string IDAlterando = Console.ReadLine();
                                 int IdAlterando = int.Parse(IDAlterando);
 
+                                Console.Clear();
                                 var _idSelecionado = cargoProvedor.RecuperaCargoPorId(IdAlterando);
                                 Console.WriteLine("Cargo que deseja alterar: " + _idSelecionado.CargoNome);
-
                                 Console.WriteLine(" \n");
+
+                                nomenovo1:
                                 Console.Write("Digite o nome do novo cargo: ");
                                 string NovoNome = Console.ReadLine();
+                                if (NovoNome == "")
+                                {
+                                    Console.WriteLine(" ---------------------------------------------------");
+                                    Console.WriteLine("             Valor inserido está vazio");
+                                    Console.WriteLine("                 Tente novamente!");
+                                    Console.WriteLine(" ---------------------------------------------------");
+                                    Console.WriteLine("\n");
+                                    goto nomenovo1;
+                                }
 
                                 _idSelecionado.CargoNome = NovoNome;
                                 cargoProvedor.AtualizaCargo(_idSelecionado);
 
-                                Console.WriteLine("\n");
-                                Console.WriteLine("--- Dados atualizados ---");
-                                Console.WriteLine("Id: " + _idSelecionado.Id);
-                                Console.WriteLine("Nome: " + _idSelecionado.CargoNome);
-                                Console.WriteLine("-------------------------");
-
+                                Console.Clear();
                                 Console.WriteLine("--------------------------------");
                                 Console.WriteLine("--------Cargo Atualizado--------");
                                 Console.WriteLine("--------------------------------");
+                                Console.WriteLine("\n");
+
+                                Console.WriteLine("-------------------------------");
+                                Console.WriteLine("--- Novos dados atualizados ---");
+                                Console.WriteLine("-------------------------------");
+                                Console.WriteLine("Id: " + _idSelecionado.Id);
+                                Console.WriteLine("Nome: " + _idSelecionado.CargoNome);
+                                Console.WriteLine("-------------------------------");
+                                Console.WriteLine("\n");
+
+                                menuimportante3:
 
                                 Console.WriteLine("Deseja voltar para o:");
                                 Console.WriteLine("1) - Menu inicial");
-                                Console.WriteLine("2) - Meno do cargo");
-                                string Resposta9= Console.ReadLine();
-                                if (Resposta9 == "1")
+                                Console.WriteLine("2) - Menu do cargo");
+                                string Resposta13 = Console.ReadLine();
+                                if (Resposta13 == "1")
                                 {
+                                    Console.Clear();
                                     goto MenuInicial;
-                                    
+
+                                }
+                                else if (Resposta13 == "2")
+                                {
+                                    Console.Clear();
+                                    goto MenuCargo;
                                 }
                                 else
                                 {
-                                    goto MenuCargo;
+                                    Console.WriteLine("--------------------------------");
+                                    Console.WriteLine("        Resposta inválida       ");
+                                    Console.WriteLine("         Tente novamente        ");
+                                    Console.WriteLine("--------------------------------");
+                                    Console.Clear();
+                                    goto menuimportante3;
                                 }
                             }
                         }
                         else
                         {
+                            Console.Clear();
                             Console.WriteLine("--------------------------------");
                             Console.WriteLine("----------Cargo criado----------");
                             Console.WriteLine("--------------------------------");
+                            Console.WriteLine("\n");
                         }
+                        menuimportante2:
                         Console.WriteLine("Deseja voltar para o:");
                         Console.WriteLine("1) - Menu inicial");
-                        Console.WriteLine("2) - Meno do cargo");
-                        string Resposta = Console.ReadLine();
-                        if (Resposta == "1")
+                        Console.WriteLine("2) - Menu do cargo");
+                        string Resposta12 = Console.ReadLine();
+                        if (Resposta12 == "1")
                         {
+                            Console.Clear();
                             goto MenuInicial;
 
                         }
+                        else if (Resposta12 == "2")
+                        {
+                            Console.Clear();
+                            goto MenuCargo;
+                        }
                         else
                         {
-                            goto MenuCargo;
+                            Console.WriteLine("--------------------------------");
+                            Console.WriteLine("        Resposta inválida       ");
+                            Console.WriteLine("         Tente novamente        ");
+                            Console.WriteLine("--------------------------------");
+                            Console.Clear();
+                            goto menuimportante2;
                         }
 
                     //break;
+                    //parei a revisão aqui 
                     case "2":
 
                         //aqui estou listando os cargos para pessoa saber qual cargo ela quer atualizar
@@ -160,22 +234,36 @@ namespace Program
                         var excluirCargo1 = cargoProvedor.RecuperaCargoPorId(IDExcluindo1);
                         cargoProvedor.ExcluiCargo(excluirCargo1);
 
+                        Console.Clear();
                         Console.WriteLine("--------------------------------");
-                        Console.WriteLine("---------Cargo excluido---------");
+                        Console.WriteLine("         Cargo excluido         ");
                         Console.WriteLine("--------------------------------");
+                        Console.WriteLine("\n");
 
+                        menuimportante:
                         Console.WriteLine("Deseja voltar para o:");
                         Console.WriteLine("1) - Menu inicial");
-                        Console.WriteLine("2) - Meno do cargo");
+                        Console.WriteLine("2) - Menu do cargo");
                         string Resposta1 = Console.ReadLine();
                         if (Resposta1 == "1")
                         {
+                            Console.Clear();
                             goto MenuInicial;
 
                         }
+                        else if (Resposta1 == "2")
+                        {
+                            Console.Clear();
+                            goto MenuCargo;
+                        }
                         else
                         {
-                            goto MenuCargo;
+                            Console.WriteLine("--------------------------------");
+                            Console.WriteLine("        Resposta inválida       ");
+                            Console.WriteLine("         Tente novamente        ");
+                            Console.WriteLine("--------------------------------");
+                            Console.Clear();
+                            goto menuimportante;
                         }
                     // break;
 
@@ -192,35 +280,48 @@ namespace Program
                         var _idSelecionado1 = cargoProvedor.RecuperaCargoPorId(IdAlterando1);
                         Console.WriteLine("Cargo que deseja alterar: " + _idSelecionado1.CargoNome);
 
-                        Console.WriteLine(" \n");
+                        Console.Clear();
                         Console.Write("Digite o nome do novo cargo: ");
                         string NovoNome1 = Console.ReadLine();
 
                         _idSelecionado1.CargoNome = NovoNome1;
                         cargoProvedor.AtualizaCargo(_idSelecionado1);
 
-                        Console.WriteLine("\n");
-                        Console.WriteLine("--- Dados atualizados ---");
-                        Console.WriteLine("Id: " + _idSelecionado1.Id);
-                        Console.WriteLine("Nome: " + _idSelecionado1.CargoNome);
-                        Console.WriteLine("-------------------------");
-
+                        Console.Clear();
                         Console.WriteLine("--------------------------------");
                         Console.WriteLine("--------Cargo Atualizado--------");
                         Console.WriteLine("--------------------------------");
 
+                        Console.Clear();
+                        Console.WriteLine("--- Novos dados ---");
+                        Console.WriteLine("Id: " + _idSelecionado1.Id);
+                        Console.WriteLine("Nome: " + _idSelecionado1.CargoNome);
+                        Console.WriteLine("--------------------------------");
+                        Console.WriteLine("\n");
+                        menuimportante11:
                         Console.WriteLine("Deseja voltar para o:");
                         Console.WriteLine("1) - Menu inicial");
-                        Console.WriteLine("2) - Meno do cargo");
-                        string Resposta2 = Console.ReadLine();
-                        if (Resposta2 == "1")
+                        Console.WriteLine("2) - Menu do cargo");
+                        string Resposta111 = Console.ReadLine();
+                        if (Resposta111 == "1")
                         {
+                            Console.Clear();
                             goto MenuInicial;
 
                         }
+                        else if (Resposta111 == "2")
+                        {
+                            Console.Clear();
+                            goto MenuCargo;
+                        }
                         else
                         {
-                            goto MenuCargo;
+                            Console.WriteLine("--------------------------------");
+                            Console.WriteLine("        Resposta inválida       ");
+                            Console.WriteLine("         Tente novamente        ");
+                            Console.WriteLine("--------------------------------");
+                            Console.Clear();
+                            goto menuimportante11;
                         }
                     // break;
                     case "4":
@@ -232,18 +333,30 @@ namespace Program
                         //aqui estou listando os cargos 
                         ApresentaCargos(cargos);
 
+                    menuimportante1:
                         Console.WriteLine("Deseja voltar para o:");
                         Console.WriteLine("1) - Menu inicial");
-                        Console.WriteLine("2) - Meno do cargo");
-                        string Resposta3 = Console.ReadLine();
-                        if (Resposta3 == "1")
+                        Console.WriteLine("2) - Menu do cargo");
+                        string Resposta11 = Console.ReadLine();
+                        if (Resposta11 == "1")
                         {
+                            Console.Clear();
                             goto MenuInicial;
 
                         }
+                        else if (Resposta11 == "2")
+                        {
+                            Console.Clear();
+                            goto MenuCargo;
+                        }
                         else
                         {
-                            goto MenuCargo;
+                            Console.WriteLine("--------------------------------");
+                            Console.WriteLine("        Resposta inválida       ");
+                            Console.WriteLine("         Tente novamente        ");
+                            Console.WriteLine("--------------------------------");
+                            Console.Clear();
+                            goto menuimportante1;
                         }
                     // break;
 
@@ -257,6 +370,7 @@ namespace Program
                         Console.WriteLine("\n");
                         Console.WriteLine("Opção inválida, digite uma opção válida:");
                         Console.WriteLine("\n");
+                        Console.Clear();
                         break;
                 }  
             }
@@ -622,12 +736,24 @@ namespace Program
 
               Console.WriteLine("------------------------------------------------------------");
               Console.WriteLine("     Programa finalizando, muito obrigado pela sua atenção  ");
-              Console.WriteLine("------------------------------------------------------------");
-                    
+              Console.WriteLine("------------------------------------------------------------");     
 
+            }
+            else if (respostaInicial == "3")
+            {
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("     Programa finalizando, muito obrigado pela sua atenção  ");
+                Console.WriteLine("------------------------------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("            Opção inválida, tente novamente ");
+                Console.WriteLine("         Escolha uma das opções descritas na tela");
+                Console.WriteLine("------------------------------------------------------------");
+                Console.Clear();
 
-                    
-
+                goto MenuInicial;
             }
         }
 
